@@ -34,7 +34,7 @@ const loadCanvasFromJSON = async (jsonLoadedData) => {
 
                     await bwipjs.toBuffer({
                         bcid: obj.barcodeOptions.bcid,       // Barcode type
-                        text: obj.barcodeOptions.text,    // Text to encode
+                        text: obj.barcodeOptions.dataText,    // Text to encode
                         scale: obj.barcodeOptions.scale,               // 3x scaling factor
                         height: obj.barcodeOptions.height,              // Bar height, in millimeters
                         includetext: true,            // Show human-readable text
@@ -45,7 +45,9 @@ const loadCanvasFromJSON = async (jsonLoadedData) => {
                             arr.push(obj)
                             // console.log(arr)
                         })
-                        .catch()
+                        .catch((e) => {
+                            console.log('barcode error')
+                        })
                 } else {
                     arr.push(obj)
                 }
@@ -55,8 +57,8 @@ const loadCanvasFromJSON = async (jsonLoadedData) => {
 
 
 
-            return new Promise((res, rej) => {
-                if (/^[\],:{}\s]*$/.test(jsonLoadedData.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+            // return new Promise((res, rej) => {
+                // if (/^[\],:{}\s]*$/.test(jsonLoadedData.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
 
                     //the json is ok
                     // canvas.setWidth(dim.dim.w);
@@ -72,16 +74,16 @@ const loadCanvasFromJSON = async (jsonLoadedData) => {
                         // and checking if object's "name" is preserved
                         // console.log('this.canvas.item(0).name');
                         // console.log(canvas.getObjects());
-                        res(canvas.toDataURL('png'))
+                        return(canvas.toDataURL('png'))
                     })
-                } else {
-                    rej({'err': 'JSON is not valid'})
-                    //the json is not ok
+                // } else {
+                //     rej({'err': 'JSON is not valid'})
+                //     //the json is not ok
+                //
+                // }
 
-                }
 
-
-            })
+            // })
             // and load everything from the same json
 
         }

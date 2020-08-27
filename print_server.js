@@ -31,7 +31,7 @@ const server = net.createServer(function (socket) {
             for(let obj of arr) {
 
                 try {
-                    await  printLabel(obj, socket).then(data => console.log(data)).catch(() => this.json='')
+                    await  printLabel(obj, socket).then(data => console.log('print')).catch(() => this.json='')
                 } catch (e) {
                     console.log('Print error')
                     json=''
@@ -114,7 +114,7 @@ async function printLabel(json, socket) {
             const buffer = Buffer.from(data, 'base64');
             fs.writeFileSync('plikA.' + ext, buffer);
             const base64str = base64_encode('./plikA.png');
-            console.log(base64str);
+            // console.log(base64str);
             const zplToSend = "^XA" + "^MNA" + "^LL0480" + "~DYE:LABEL,P,P," + (base64str.length / 2) + ",," + base64str + "^XZ";
             // console.log(base64str.length)
             fs.writeFile('/dev/usb/lp1', zplToSend, function (err, dat) {
@@ -133,7 +133,7 @@ async function printLabel(json, socket) {
                         return console.log(err);
                     }
                     // socket.write('oko')
-                    resolve('Print')
+                    //resolve('Print')
 
                 })
             })
