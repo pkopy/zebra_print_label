@@ -1,0 +1,11 @@
+[Unit]
+Description=Print Server for Zebra
+
+[Service]
+#Restart=always
+#RestartSec=1
+User=root
+ExecStart=/usr/bin/node /usr/local/lib/print_server_SLE/print_server.js start
+
+[Install]
+WantedBy=default.target
